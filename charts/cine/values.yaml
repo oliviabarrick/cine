@@ -1,7 +1,7 @@
 replicas: 1
 image:
   repository: ghcr.io/oliviabarrick/cine
-  tag: sha-9580531
+  tag: sha-2bb90bd
 containerPort: 8080
 service:
   port: 80
