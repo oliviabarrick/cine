@@ -95,3 +95,13 @@ step sets it after each push to `main`.
 
 Develop on a branch, push, and open a PR (never push straight to `main`). Adding
 a new chain = writing one `Provider`; everything else already handles it.
+
+## Managed deploy & ops guidance
+
+The build → publish → deploy pipeline, `gh`/git usage, PR-watching, and MCP
+connectors are documented in the Terraform-managed `.github/CLAUDE.md`.
+Subdirectory `CLAUDE.md` files load only on demand (when a session opens files
+under that directory), so import it here to pull it into context at session
+start:
+
+@.github/CLAUDE.md
