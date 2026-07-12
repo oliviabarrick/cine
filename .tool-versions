@@ -3,11 +3,12 @@
 # tool-versions.tftpl) and pushed to every app repo, so the toolset evolves from
 # one place -- like publish.yml/lint.yml/CLAUDE.md. Edit it in skylartaylor/thinkpod,
 # not here. Lives at the repo ROOT (not .github/) because asdf/mise only discover
-# .tool-versions at the root and ancestor dirs. `latest` keeps the toolchain current
-# without churning this file on every upstream release.
-awscli latest
-sops latest
-helm latest
-kubectl latest
-flux2 latest
-github-cli latest
+# .tool-versions at the root and ancestor dirs. Versions are pinned to the current
+# latest release of each tool; bump them here to roll the fleet forward.
+awscli 2.35.21
+sops 3.13.2
+helm 4.2.3
+kubectl 1.36.2
+flux2 2.9.1
+github-cli 2.96.0
+terraform 1.15.8
