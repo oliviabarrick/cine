@@ -1,0 +1,21 @@
+replicas: 1
+image:
+  repository: ghcr.io/oliviabarrick/cine
+  tag: latest
+containerPort: 8080
+service:
+  port: 80
+# Name of an existing image pull secret, if the deploying cluster needs one for a
+# private registry. This is cluster-specific (depends on how that cluster manages
+# credentials), so it has no default here — set it via a values override in
+# whatever HelmRelease/values file deploys this chart.
+pullSecretName: ""
+# Optional Ingress. Off by default; the deploying cluster (or a preview env) sets
+# enabled: true with a host + className to expose the app. className/annotations/tls
+# are cluster-specific and supplied by whatever deploys the chart.
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  host: ""
+  tls: []
