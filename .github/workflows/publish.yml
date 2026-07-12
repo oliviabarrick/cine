@@ -1,0 +1,30 @@
+name: Publish
+
+# Thin caller for the shared build/push machinery in
+# oliviabarrick/thinkpod-ci (build-publish.yml): the per-PR preview image +
+# comment, and the push-to-main image publish + chart image.tag bump. Managed by
+# thinkpod's Terraform (terraform/github/). On a PR the reusable workflow
+# auto-applies the `preview` label and builds the preview env when the diff touches
+# the chart, the Dockerfile, or this app's `preview_paths`; `labeled` keeps a
+# manually-added `preview` label working too.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, labeled]
+
+jobs:
+  publish:
+    uses: oliviabarrick/thinkpod-ci/.github/workflows/build-publish.yml@main
+    permissions:
+      contents: write
+      packages: write
+      pull-requests: write
+    secrets: inherit
+    with:
+      slug: cine
+      chart_path: charts/cine
+      dockerfile: Dockerfile
+      preview_paths: "web *.go go.mod go.sum"
