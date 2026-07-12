@@ -1,0 +1,72 @@
+{
+ "sites": [
+  {
+   "slug": "all",
+   "id": 0,
+   "name": "All",
+   "availAttrs": [],
+   "city": ""
+  },
+  {
+   "slug": "cinepolis-lincoln",
+   "id": 1625,
+   "name": "Cinépolis Lincoln",
+   "availAttrs": [
+    "3D",
+    "2D",
+    "DOB",
+    "SUBTITLE"
+   ],
+   "city": "SAN JOSÉ"
+  },
+  {
+   "slug": "cinepolis-terramall",
+   "id": 1627,
+   "name": "Cinépolis TerraMall",
+   "availAttrs": [
+    "JUNIOR",
+    "3D",
+    "2D",
+    "DOB",
+    "FINB",
+    "4DX",
+    "SUBTITLE"
+   ],
+   "city": "CARTAGO"
+  }
+ ],
+ "movies": [
+  {
+   "slug": "moana",
+   "emid": 2175,
+   "code": "48161",
+   "webName": "Moana",
+   "isDubbed": "1",
+   "isSubtitled": "0",
+   "attrsList": [
+    "VIP",
+    "2D",
+    "SUBTITLE",
+    "DOB",
+    "XE",
+    "JUNIOR",
+    "3D",
+    "4DX"
+   ]
+  },
+  {
+   "slug": "backrooms-sin-salida",
+   "emid": 2194,
+   "code": "48189",
+   "webName": "Backrooms: Sin Salida",
+   "isDubbed": "0",
+   "isSubtitled": "1",
+   "attrsList": [
+    "2D",
+    "SUBTITLE"
+   ]
+  }
+ ],
+ "comingSoonMovies": [],
+ "groups": []
+}

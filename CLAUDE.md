@@ -30,9 +30,12 @@ cinema site never blocks a page load. The frontend (`web/`, vanilla JS + a
 - `salagarbo.go` — **live scraper.** Server-rendered WordPress cartelera parsed
   with a marker-split HTML parser; single art-house cinema, defaults to
   subtituladas. Fixture-tested (`testdata/salagarbo.html`).
-- `cinepolis.go` — **stub-quality; needs rewrite.** The current marker-split
-  HTML parser targets markup the live site doesn't have (Cinépolis is a
-  WordPress + React SPA). See the caveat below.
+- `cinepolis.go` — **live scraper.** The public catalog
+  (`cinepolis.co.cr/wp-json/mapi/v1/sites-data`) gives cinemas + films; the
+  BiggerPicture ticketing API (`pub-api-use1.biggerpicture.ai/ecomAPI`) supplies
+  the sessions behind a POST-minted JWT. Fanned out per cinema × film over a date
+  window with bounded concurrency; per-screening sub/dub. Fixture-tested
+  (`testdata/cinepolis_*.json`).
 - `providers_stub.go` — `stubProvider` scaffold (no chains use it now; kept as
   the template for wiring a new chain).
 - `aggregator.go` — concurrent scrape of all providers, panic-isolated,
@@ -42,17 +45,20 @@ cinema site never blocks a page load. The frontend (`web/`, vanilla JS + a
 - `server.go` / `gzip.go` — static-asset serving (versioned `?v=<hash>` URLs +
   gzip) reused from the **photo-editor** template; `/api/*` is routed alongside.
 
-> **Cinépolis caveat.** Cinemark, CCM, and Sala Garbo are wired end-to-end and
-> tested against real endpoint shapes. **Cinépolis is not.** Its browse site
-> (`cinepolis.co.cr`) is a WordPress + React app whose only JSON endpoint
-> (`/wp-json/mapi/v1/sites-data`) carries the movie catalog + cinemas + sub/dub
-> flags but **no showtimes**; the times live in the BiggerPicture ticketing API
-> (`pub-api-use1.biggerpicture.ai/ecomAPI`), which requires a POST-minted JWT
-> (`/sys/login` → `Authorization: Bearer` + `SiteId` header) before its
-> `GET /cus/eventMaster/{emid}/site/{siteId}/startDate/{d}/endDate/{d}` sessions
-> endpoint returns data. `cinepolis.go` still has the old HTML parser and must be
-> rewritten to this flow. See the session handover for the full reverse-engineered
-> spec.
+> **All four chains are now live** and tested against real endpoint shapes.
+> Cinépolis is the odd one out: its browse site (`cinepolis.co.cr`) is a
+> WordPress + React app whose only JSON endpoint (`/wp-json/mapi/v1/sites-data`)
+> carries the movie catalog + cinemas + sub/dub flags but **no showtimes**. The
+> times live in the BiggerPicture ticketing API
+> (`pub-api-use1.biggerpicture.ai/ecomAPI`): `POST /sys/login` mints a bearer
+> JWT (one token serves every cinema), then
+> `GET /cus/eventMaster/{emid}/site/{siteId}/startDate/{d}/endDate/{d}` with
+> `Authorization: Bearer <token>` returns a film's sessions at a cinema over a
+> date window (`.list`, with per-screening `isSubtitled`/`isDubbed`). There's no
+> site→movie map, so `cinepolis.go` fans out over every (cinema, film) pair —
+> bounded by `cinepolisConcurrency` over a `cinepolisMaxDays` window. If the
+> session field names shift, re-capture an authed response and update the
+> `cineSession` struct.
 
 ```sh
 go run .                     # serve on :8080 (scrapes on startup + every 30m)
