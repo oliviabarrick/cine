@@ -19,12 +19,22 @@ cinema site never blocks a page load. The frontend (`web/`, vanilla JS + a
   chains' inconsistent Spanish labels onto sub/dub) + the fixed CR timezone.
 - `provider.go` — the `Provider` interface every chain implements, the registry
   (`providers()`), and the shared HTTP fetch helper.
-- `cinepolis.go` — **the one live reference scraper.** Real HTTP fetch of the
-  public cartelera + a marker-split HTML parser, fixture-tested
-  (`testdata/cinepolis.html`).
-- `providers_stub.go` — Cinemark, CCM, Sala Garbo as stubs returning
-  `errNotImplemented`. Each documents where to plug its parser in; the model,
-  cache, API, and UI already handle everything downstream.
+- `cinemark.go` — **live scraper.** Cinemark CA's Vista JSON API
+  (`api.cinemarkca.com/api/vista/data`): filter `theatres` to Costa Rica, then
+  `billboard?cinema_id=<id>` per cinema; sub/dub parsed from the version-title
+  suffix. Fixture-tested (`testdata/cinemark_*.json`).
+- `ccm.go` — **live scraper.** CCM's ASP.NET JSON endpoints, fanned out per
+  cinema (401/402/403) → movie → date: `GetPeliculasPorComplejo`,
+  `GetFechasDisponibles`, `GetCacheFuncionesComplejoPeliculaFecha` (accurate
+  per-screening sub/dub). Fixture-tested (`testdata/ccm_*.json`).
+- `salagarbo.go` — **live scraper.** Server-rendered WordPress cartelera parsed
+  with a marker-split HTML parser; single art-house cinema, defaults to
+  subtituladas. Fixture-tested (`testdata/salagarbo.html`).
+- `cinepolis.go` — **stub-quality; needs rewrite.** The current marker-split
+  HTML parser targets markup the live site doesn't have (Cinépolis is a
+  WordPress + React SPA). See the caveat below.
+- `providers_stub.go` — `stubProvider` scaffold (no chains use it now; kept as
+  the template for wiring a new chain).
 - `aggregator.go` — concurrent scrape of all providers, panic-isolated,
   per-chain error tracking, TTL/staleness, cached snapshot.
 - `api.go` — `GET /api/showtimes` → normalized JSON + facets (chains, cinemas)
@@ -32,12 +42,17 @@ cinema site never blocks a page load. The frontend (`web/`, vanilla JS + a
 - `server.go` / `gzip.go` — static-asset serving (versioned `?v=<hash>` URLs +
   gzip) reused from the **photo-editor** template; `/api/*` is routed alongside.
 
-> **Scraper accuracy caveat.** Only Cinépolis is wired end-to-end, and its
-> selectors were modeled on the chain's typical markup, **not** verified against
-> the live site (the dev sandbox's egress policy blocks the CR cinema hosts).
-> When running where egress is open, confirm the three regexes in `cinepolis.go`
-> against the real DOM. The other three chains need their parsers written — swap
-> the stub in `providers()` for a real `Provider` shaped like `cinepolis`.
+> **Cinépolis caveat.** Cinemark, CCM, and Sala Garbo are wired end-to-end and
+> tested against real endpoint shapes. **Cinépolis is not.** Its browse site
+> (`cinepolis.co.cr`) is a WordPress + React app whose only JSON endpoint
+> (`/wp-json/mapi/v1/sites-data`) carries the movie catalog + cinemas + sub/dub
+> flags but **no showtimes**; the times live in the BiggerPicture ticketing API
+> (`pub-api-use1.biggerpicture.ai/ecomAPI`), which requires a POST-minted JWT
+> (`/sys/login` → `Authorization: Bearer` + `SiteId` header) before its
+> `GET /cus/eventMaster/{emid}/site/{siteId}/startDate/{d}/endDate/{d}` sessions
+> endpoint returns data. `cinepolis.go` still has the old HTML parser and must be
+> rewritten to this flow. See the session handover for the full reverse-engineered
+> spec.
 
 ```sh
 go run .                     # serve on :8080 (scrapes on startup + every 30m)

@@ -1,0 +1,34 @@
+[
+  {
+    "date": "2026-07-12",
+    "movies": [
+      {
+        "title": "Moana Live Action",
+        "runtime": "120",
+        "rating": "TP",
+        "genre": "Comedia",
+        "opening_date": "2026-07-09T00:00:00",
+        "movie_versions": [
+          {
+            "film_HOPK": "HO00069398",
+            "title": "Moana Live Action (2D DOB DBOX -CR)",
+            "film_HO_code": "417581",
+            "id": "770-HO00069398",
+            "sessions": [
+              { "id": "244210", "showtime": "2026-07-12T15:30:00", "day": "2026-07-12", "hour": "15:30:00", "seats_available": 268 }
+            ]
+          },
+          {
+            "film_HOPK": "HO00069395",
+            "title": "Moana Live Action (2D SUB -CR)",
+            "film_HO_code": "417581",
+            "id": "770-HO00069395",
+            "sessions": [
+              { "id": "244465", "showtime": "2026-07-12T20:40:00", "day": "2026-07-12", "hour": "20:40:00", "seats_available": 140 }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

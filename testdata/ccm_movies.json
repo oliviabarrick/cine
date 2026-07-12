@@ -1,0 +1,34 @@
+[
+  {
+    "codFuncion": 1565,
+    "codComplejo": 402,
+    "horaComienzo": "16:00",
+    "fecha": "2026-07-11T00:00:00",
+    "codPelicula": 24,
+    "cachePeliculas": {
+      "codPelicula": 24,
+      "titulo": "Scary Movie 6",
+      "tituloOriginal": "Scary Movie 6",
+      "subtitulada": true,
+      "duracion": 95,
+      "codLenguaje": 2
+    },
+    "cacheComplejosGeo": { "codComplejo": 402, "nombre": "San Ramon" }
+  },
+  {
+    "codFuncion": 1573,
+    "codComplejo": 402,
+    "horaComienzo": "13:00",
+    "fecha": "2026-07-11T00:00:00",
+    "codPelicula": 27,
+    "cachePeliculas": {
+      "codPelicula": 27,
+      "titulo": "Toy Story 5",
+      "tituloOriginal": "Toy Story 5",
+      "subtitulada": false,
+      "duracion": 105,
+      "codLenguaje": 1
+    },
+    "cacheComplejosGeo": { "codComplejo": 402, "nombre": "San Ramon" }
+  }
+]

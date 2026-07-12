@@ -55,9 +55,9 @@ type Provider interface {
 func providers() []Provider {
 	return []Provider{
 		newCinepolis(),
-		stubProvider{name: "Cinemark", site: "https://www.cinemarkca.com/costa-rica"},
-		stubProvider{name: "CCM", site: "https://www.ccmcinemas.com/"},
-		stubProvider{name: "Sala Garbo", site: "https://salagarbo.com/cartelera/"},
+		newCinemark(),
+		newCCM(),
+		newSalaGarbo(),
 	}
 }
 
