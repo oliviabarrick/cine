@@ -149,6 +149,16 @@ shell** above.
   and can't reach other owners; the capital-G one uses your GitHub OAuth and can
   reach `skylartaylor/thinkpod` (the deploy repo). A PreToolUse hook rejects the
   lowercase connector -- reach for `mcp__Github__*` from the start.
+- **Built-in remote-control connector (`mcp__Claude_Code_Remote__*`) -- disabled;
+  use `gh` + the GitOps pipeline instead.** Its tools -- repo attach
+  (`add_repo`, `list_repos`, `register_repo_root`), scheduling triggers
+  (`create_trigger`, `update_trigger`, `delete_trigger`, `fire_trigger`,
+  `list_triggers`, `list_environments`), deferred messaging (`send_later`), and
+  PR-watching (`subscribe_pr_activity` / `unsubscribe_pr_activity`) -- are
+  deny-listed in the session settings, and the two PR-watching tools are
+  additionally rejected by a PreToolUse hook that redirects to `gh`. Do repo,
+  scheduling, and PR-watching work through `gh` and branch -> PR -> merge, not
+  this connector; see **PR watching** and **Trust the shell** above.
 - **Kubernetes -- `mcp__Kubernetes__*`** (present in some sessions), wired to the
   thinkpod cluster. Use it to verify what's *actually* running instead of
   inferring from git: this app is in namespace **`cine`**. Typical checks: pod
