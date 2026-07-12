@@ -1,0 +1,50 @@
+[
+  {
+    "tecnologia": 3,
+    "tecnologiaNombre": "LASER",
+    "idioma": "Español",
+    "funciones": [
+      {
+        "horaComienzoOriginal": "16:00",
+        "horaComienzoAjustada": "16:30",
+        "subtitulada": false,
+        "doblada": true,
+        "codFuncion": 1582,
+        "codTecnologia": 3,
+        "codPelicula": 24,
+        "tolerancia": 30,
+        "idiomaPel": "Español",
+        "codSala": 1,
+        "codTipoSala": 1,
+        "nomTipoSala": "Normal",
+        "agotada": false
+      }
+    ],
+    "nombreComplejo": "San Ramon",
+    "direccionComplejo": "Alajuela, San Ramón Plaza Occidente"
+  },
+  {
+    "tecnologia": 3,
+    "tecnologiaNombre": "LASER",
+    "idioma": "Inglés",
+    "funciones": [
+      {
+        "horaComienzoOriginal": "19:15",
+        "horaComienzoAjustada": "19:45",
+        "subtitulada": true,
+        "doblada": false,
+        "codFuncion": 1590,
+        "codTecnologia": 3,
+        "codPelicula": 24,
+        "tolerancia": 30,
+        "idiomaPel": "Inglés",
+        "codSala": 2,
+        "codTipoSala": 1,
+        "nomTipoSala": "Normal",
+        "agotada": false
+      }
+    ],
+    "nombreComplejo": "San Ramon",
+    "direccionComplejo": "Alajuela, San Ramón Plaza Occidente"
+  }
+]

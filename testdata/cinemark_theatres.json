@@ -1,0 +1,35 @@
+[
+  {
+    "city": "San José, Costa Rica",
+    "cinemas": [
+      {
+        "ID": "770",
+        "Name": "Costa Rica - Multiplaza Escazu",
+        "City": "San José, Costa Rica",
+        "Slug": "costa-rica-multiplaza-escazu"
+      }
+    ]
+  },
+  {
+    "city": "MultiplazaTegucigalpa,Honduras",
+    "cinemas": [
+      {
+        "ID": "771",
+        "Name": "Honduras - Multiplaza Tegucigalpa",
+        "City": "MultiplazaTegucigalpa,Honduras",
+        "Slug": "honduras-multiplaza-tegucigalpa"
+      }
+    ]
+  },
+  {
+    "city": "Oxigeno, Costa Rica",
+    "cinemas": [
+      {
+        "ID": "2210",
+        "Name": "Costa Rica - Oxigeno",
+        "City": "Oxigeno, Costa Rica",
+        "Slug": "costa-rica-oxigeno"
+      }
+    ]
+  }
+]
