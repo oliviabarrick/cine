@@ -1,7 +1,9 @@
 package main
 
 import (
+	"bytes"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -68,12 +70,21 @@ var httpClient = &http.Client{Timeout: 20 * time.Second}
 // fetchPage GETs url with a browser-like User-Agent (several of these sites 403
 // bare clients) and returns the body, honoring ctx.
 func fetchPage(ctx context.Context, url string) ([]byte, error) {
+	return fetchPageWithHeaders(ctx, url, nil)
+}
+
+// fetchPageWithHeaders is fetchPage plus caller-supplied headers, used by chains
+// (e.g. Cinépolis) whose showtimes endpoint needs an Authorization bearer.
+func fetchPageWithHeaders(ctx context.Context, url string, headers map[string]string) ([]byte, error) {
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
 	if err != nil {
 		return nil, err
 	}
 	req.Header.Set("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125 Safari/537.36")
 	req.Header.Set("Accept-Language", "es-CR,es;q=0.9,en;q=0.8")
+	for k, v := range headers {
+		req.Header.Set(k, v)
+	}
 	resp, err := httpClient.Do(req)
 	if err != nil {
 		return nil, err
@@ -83,5 +94,30 @@ func fetchPage(ctx context.Context, url string) ([]byte, error) {
 		return nil, &httpError{URL: url, Status: resp.StatusCode}
 	}
 	// Cap the read so a misbehaving upstream can't exhaust memory.
+	return readAllLimited(resp.Body, 8<<20)
+}
+
+// postJSON POSTs reqBody as JSON to url and returns the response body, honoring
+// ctx. Some chains (Cinépolis) mint a short-lived auth token this way before
+// their read endpoints will answer.
+func postJSON(ctx context.Context, url string, reqBody any) ([]byte, error) {
+	buf, err := json.Marshal(reqBody)
+	if err != nil {
+		return nil, err
+	}
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, url, bytes.NewReader(buf))
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Set("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125 Safari/537.36")
+	req.Header.Set("Content-Type", "application/json")
+	resp, err := httpClient.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		return nil, &httpError{URL: url, Status: resp.StatusCode}
+	}
 	return readAllLimited(resp.Body, 8<<20)
 }

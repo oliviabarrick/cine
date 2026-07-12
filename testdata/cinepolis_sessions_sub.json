@@ -1,0 +1,46 @@
+{
+ "returnCode": 0,
+ "recordCount": 3,
+ "returnText": "OK",
+ "list": [
+  {
+   "siteId": 1627,
+   "eventId": 97993,
+   "eventMasterId": 2194,
+   "dateTimeOfEvent": "2026-07-12T21:50:00",
+   "businessDate": "2026-07-12T00:00:00",
+   "eventMasterDisplayName": "Backrooms: Sin Salida Sub",
+   "siteDisplayName": "Cinépolis TerraMall",
+   "venueDisplayName": "SALA 12",
+   "isSubtitled": true,
+   "isDubbed": false,
+   "eventAttributes": "[{\"id\":13,\"name\":\"2D\"},{\"id\":15,\"name\":\"SUBTITLE\"}]"
+  },
+  {
+   "siteId": 1627,
+   "eventId": 97913,
+   "eventMasterId": 2194,
+   "dateTimeOfEvent": "2026-07-13T21:50:00",
+   "businessDate": "2026-07-13T00:00:00",
+   "eventMasterDisplayName": "Backrooms: Sin Salida Sub",
+   "siteDisplayName": "Cinépolis TerraMall",
+   "venueDisplayName": "SALA 12",
+   "isSubtitled": true,
+   "isDubbed": false,
+   "eventAttributes": "[{\"id\":13,\"name\":\"2D\"},{\"id\":15,\"name\":\"SUBTITLE\"}]"
+  },
+  {
+   "siteId": 1627,
+   "eventId": 97953,
+   "eventMasterId": 2194,
+   "dateTimeOfEvent": "2026-07-14T21:50:00",
+   "businessDate": "2026-07-14T00:00:00",
+   "eventMasterDisplayName": "Backrooms: Sin Salida Sub",
+   "siteDisplayName": "Cinépolis TerraMall",
+   "venueDisplayName": "SALA 12",
+   "isSubtitled": true,
+   "isDubbed": false,
+   "eventAttributes": "[{\"id\":13,\"name\":\"2D\"},{\"id\":15,\"name\":\"SUBTITLE\"}]"
+  }
+ ]
+}
