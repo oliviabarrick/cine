@@ -160,6 +160,11 @@ token that does the job.
    This writes only the helper *script text* into `~/.gitconfig`; the token
    value is read from `$GH_PAT` at git runtime, so it never enters the cached
    snapshot — only the freshly-injected env var each session.
+
+   This repo already ships that wiring: `scripts/setup-cross-owner-git.sh` (run
+   by a `SessionStart` hook in `.claude/settings.json`) applies the helper when
+   `$GH_PAT` is set and is a no-op otherwise. So in practice the only manual step
+   is adding the `GH_PAT` environment variable.
 4. **Cross-owner clones then just work in-session**, no token on any command
    line: `git clone https://github.com/skylartaylor/thinkpod`. The proxy
    forwards `$GH_PAT` for repos it doesn't manage; for your own repos it keeps
