@@ -1,0 +1,31 @@
+<!--
+  Fixture modeling the cartelera DOM parseCinepolis expects. Not a live capture
+  (the build sandbox can't reach cinepolis.co.cr) — it documents the structure
+  the three regexes in cinepolis.go target: a .movie card carrying data-title,
+  containing .function blocks (data-format + optional data-lang) whose showtime
+  chips carry data-datetime / data-cinema / href. Verify against the real DOM
+  once deployed where egress is open.
+-->
+<html>
+<body>
+<div class="cartelera">
+
+  <div class="movie" data-title="Dune: Parte Dos">
+    <div class="function" data-format="SUBT" data-lang="Inglés">
+      <a class="chip" data-datetime="2026-07-12T18:30" data-cinema="Cinépolis San Pedro" href="/comprar/1">6:30 p.m.</a>
+      <a class="chip" data-datetime="2026-07-12T21:15" data-cinema="Cinépolis San Pedro" href="/comprar/2">9:15 p.m.</a>
+    </div>
+    <div class="function" data-format="DOB" data-lang="Español">
+      <a class="chip" data-datetime="2026-07-12T15:00" data-cinema="Cinépolis San Pedro" href="/comprar/3">3:00 p.m.</a>
+    </div>
+  </div>
+
+  <div class="movie" data-title="Intensamente 2">
+    <div class="function" data-format="DOB" data-lang="Español">
+      <a class="chip" data-datetime="2026-07-12T14:00" data-cinema="Cinépolis Escazú" href="/comprar/4">2:00 p.m.</a>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

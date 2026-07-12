@@ -1,0 +1,37 @@
+{{- /*
+Optional Ingress. Off by default -- renders nothing unless a values override sets
+`ingress.enabled: true`. The deploying cluster turns it on with a `host` and an
+`ingressClassName` (e.g. the Cloudflare Tunnel ingress controller) to expose the
+app; preview environments do the same with a per-PR host.
+*/ -}}
+{{- if .Values.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: cine
+  labels:
+    app: cine
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- with .Values.ingress.className }}
+  ingressClassName: {{ . }}
+  {{- end }}
+  {{- with .Values.ingress.tls }}
+  tls:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  rules:
+    - host: {{ required "ingress.host is required when ingress.enabled=true" .Values.ingress.host | quote }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: cine
+                port:
+                  number: {{ .Values.service.port }}
+{{- end }}

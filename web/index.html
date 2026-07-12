@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cine · Cartelera Costa Rica</title>
+  <meta name="description" content="Cartelera unificada de cines en Costa Rica: filtra por película, hora, subtituladas o dobladas, y sala.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎬</text></svg>">
+  <link rel="stylesheet" href="/app.css?v=__VERSION__">
+</head>
+<body>
+  <header class="topbar">
+    <h1>🎬 Cine<span class="cr"> · Costa Rica</span></h1>
+    <div id="status" class="status"></div>
+  </header>
+
+  <div id="notices" class="notices"></div>
+
+  <section class="filters" aria-label="Filtros">
+    <input id="q" class="q" type="search" placeholder="Buscar película…" autocomplete="off" aria-label="Buscar película">
+
+    <div class="seg" role="group" aria-label="Formato" id="formatSeg">
+      <button data-format="sub" class="on">Subtituladas</button>
+      <button data-format="dub">Dobladas</button>
+      <button data-format="all">Todas</button>
+    </div>
+
+    <div class="selects">
+      <label>Fecha
+        <select id="date" aria-label="Fecha"></select>
+      </label>
+      <label>Sala
+        <select id="cinema" aria-label="Sala"></select>
+      </label>
+    </div>
+
+    <div id="chains" class="chains" role="group" aria-label="Cadenas"></div>
+  </section>
+
+  <main id="results" class="results" aria-live="polite"></main>
+
+  <footer class="foot">
+    Todo client-side · datos recolectados server-side de las cadenas ·
+    <span id="sources"></span>
+  </footer>
+
+  <script src="/app.js?v=__VERSION__"></script>
+</body>
+</html>

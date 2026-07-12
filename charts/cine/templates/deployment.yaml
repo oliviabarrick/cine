@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cine
+spec:
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      app: cine
+  template:
+    metadata:
+      labels:
+        app: cine
+    spec:
+      {{- if .Values.pullSecretName }}
+      imagePullSecrets:
+        - name: {{ .Values.pullSecretName }}
+      {{- end }}
+      containers:
+        - name: cine
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            - containerPort: {{ .Values.containerPort }}
+          readinessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.containerPort }}
+          livenessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.containerPort }}
