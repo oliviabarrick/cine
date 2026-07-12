@@ -120,6 +120,14 @@ Four systems, each owning one hop:
   panel images or alert state. Like Kubernetes, treat it as read/verify access --
   watch request rate, latency, and error/restart spikes after a publish; fix
   forward through git, don't hand-edit dashboards.
+- **WebFetch -- `mcp__Thinkpod_WebFetch__*`** (present in some sessions), a
+  self-hosted web-access MCP server at `webfetch-mcp.taylor-barrick.com/mcp`.
+  Tools: `web_fetch` (clean article text via Mozilla Readability), `web_fetch_raw`
+  (the page's raw HTML, unprocessed -- for markup/meta tags/scripts), and
+  `web_search` (returns an error until a SearxNG backend is added). Use it to pull
+  live web pages/docs into a task; it is fetch-only and never writes. Unlike the
+  app image, it is built and deployed from `skylartaylor/thinkpod` itself
+  (`images/webfetch-mcp/` + `cluster/infra/mcp/webfetch-mcp.yaml`), not per-app.
 
 ## Using it
 
