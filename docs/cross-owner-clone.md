@@ -119,6 +119,55 @@ but **no `.git` history**, and writes still go back through the MCP
 (`push_files` / `create_or_update_file`), which is slow and size-limited for
 large blobs. For anything heavy, prefer Method 1.
 
+## Providing the token to Claude Code on the web sessions
+
+Per the Claude Code on the web docs, **there is no dedicated secrets store yet**:
+environment variables and setup scripts are stored in the environment config and
+are **visible to anyone who can edit that environment**. A token you add is
+protected at "anyone who can edit this environment" level, not encrypted-secret
+level — so the token's **scope is your real security control**. Anything running
+in the session can read the variable, and GitHub egress is open, so an
+injected/compromised task could exfiltrate it via `git push`. Mint the smallest
+token that does the job.
+
+1. **Mint a least-privilege token.** For a cross-*user* target like
+   `skylartaylor/thinkpod`, a token created under your own account can only be a
+   broad classic `repo` PAT (fine-grained is impossible — confirmed: the
+   resource-owner picker only lists your own account, and `skylartaylor` is a
+   separate user, not an org you belong to). Prefer instead a **fine-grained PAT
+   created while logged in as `skylartaylor`**, scoped to **only `thinkpod`**,
+   **Contents: read** (add write only to push). Same result for git, far smaller
+   blast radius if the variable leaks. Short expiry, rotate.
+2. **Add it as an environment variable.** Environment selector → Add/Edit
+   environment → Environment variables (`.env` format, one `KEY=value` per line,
+   **no quotes**):
+
+   ```
+   GH_PAT=<classic ghp_… or the skylartaylor-owned github_pat_…>
+   ```
+3. **Turn it into git auth without baking the secret into the cached image** —
+   put a credential helper in either the environment **setup script** (runs as
+   root before Claude; result is cached) or a repo **SessionStart hook** (also
+   covers teleported-local sessions). Guard on the variable so it's a no-op when
+   unset:
+
+   ```bash
+   # setup script, or a SessionStart hook script in the repo
+   [ -n "$GH_PAT" ] && git config --global credential.helper \
+     '!f() { echo username=x-access-token; echo "password=$GH_PAT"; }; f'
+   ```
+
+   This writes only the helper *script text* into `~/.gitconfig`; the token
+   value is read from `$GH_PAT` at git runtime, so it never enters the cached
+   snapshot — only the freshly-injected env var each session.
+4. **Cross-owner clones then just work in-session**, no token on any command
+   line: `git clone https://github.com/skylartaylor/thinkpod`. The proxy
+   forwards `$GH_PAT` for repos it doesn't manage; for your own repos it keeps
+   injecting its own scoped token, so the global helper is harmless there.
+
+Don't commit the token or write it literally into the setup script — keep it in
+the env var only. And revoke any token you've pasted into a chat/transcript.
+
 ## What does not work (don't retry these)
 
 - `add_repo skylartaylor/thinkpod` → `cross-tier adds are not supported in v1`.
