@@ -1,0 +1,43 @@
+name: Lint
+
+# Lint + validate this app's Helm chart on every PR. Managed by thinkpod's
+# Terraform (terraform/github/templates/lint.yml.tftpl) and pushed to every app
+# repo, so the check evolves fleet-wide from one place -- exactly like publish.yml.
+# Edit it in skylartaylor/thinkpod, not here. This app's chart lives at charts/cine.
+# (This repo's own build/tests stay in the unmanaged test.yml.)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'charts/cine/**'
+      - '.github/workflows/lint.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'charts/cine/**'
+      - '.github/workflows/lint.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  helm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: azure/setup-helm@v4
+        with:
+          version: v3.16.3
+      - name: Install kubeconform
+        run: |
+          mkdir -p "$HOME/.local/bin"
+          curl -fsSL https://github.com/yannh/kubeconform/releases/download/v0.6.7/kubeconform-linux-amd64.tar.gz \
+            | tar -xz -C "$HOME/.local/bin" kubeconform
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+      - name: helm lint
+        run: helm lint --strict charts/cine
+      - name: helm template + kubeconform
+        run: |
+          helm template release charts/cine \
+            | kubeconform -strict -ignore-missing-schemas -summary -
