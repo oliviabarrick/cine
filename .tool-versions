@@ -1,10 +1,10 @@
-# asdf/mise tool versions for this app repo's dev + Claude Code environment.
-# Managed fleet-wide by thinkpod's Terraform (terraform/github/templates/
-# tool-versions.tftpl) and pushed to every app repo, so the toolset evolves from
-# one place -- like publish.yml/lint.yml/CLAUDE.md. Edit it in skylartaylor/thinkpod,
-# not here. Lives at the repo ROOT (not .github/) because asdf/mise only discover
-# .tool-versions at the root and ancestor dirs. Versions are pinned to the current
-# latest release of each tool; bump them here to roll the fleet forward.
+# asdf/mise tool versions for this repo's dev + Claude Code environment.
+# This root file is the source of truth. The Terraform module keeps a symlink at
+# terraform/github/templates/tool-versions.tftpl so fleet app repos receive the
+# same toolset. Lives at the repo ROOT (not .github/) because asdf/mise only
+# discover .tool-versions at the root and ancestor dirs. Versions are pinned to
+# the current latest release of each tool; bump them here to roll the fleet
+# forward.
 awscli 2.35.21
 sops 3.13.2
 helm 4.2.3
