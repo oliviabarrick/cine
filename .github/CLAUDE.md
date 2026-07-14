@@ -266,6 +266,9 @@ terminal only at merged + deploy-verified, or closed (or when the user says stop
 9. **Steer by intuition, then verify assumptions.** A hunch picks where to look; its failure mode is fixing a look-alike problem. The cause usually hides in the hop you assumed was fine -- prove it (is the tag actually bumped? is the pull secret actually present?).
 10. **Resolution = an explanation.** State the root cause in a sentence and confirm it covers all the behavior, then ship the fix forward.
 11. **Reset before you tunnel.** When checks stop yielding new knowledge, re-read from the top instead of pushing the same approach harder.
+12. **Label every claim proven or inferred.** Say which statements you observed and which you're deducing; an inferred one names the check that would confirm it -- but if you can run that check yourself, root-cause it now instead of deferring.
+13. **Try to refute your leading hypothesis, not confirm it.** Build 2-3 rival explanations from different angles independently, so you don't anchor on the first, then run the one measurement that separates them. Evidence that merely fits isn't proof.
+14. **Chase contradictions, don't smooth them over.** Two facts that don't line up are the crux of the bug, not noise -- "probably just X" leaves it to recur.
 
 ### CI (GitHub Actions)
 - **`publish` fails instantly / "workflow was not found" / startup_failure**: the
