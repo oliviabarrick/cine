@@ -100,6 +100,6 @@ a new chain = writing one `Provider`; everything else already handles it.
 
 The build → publish → deploy pipeline, `gh`/git usage, PR-watching, and MCP
 connectors are documented in the Terraform-managed `.github/AGENTS.md`.
-Before GitHub, deployment, or operational work, read that file. Claude Code and
-Gemini load it through their root adapter files; other agents should open it on
-demand.
+Import it here so every agent loads the same guide:
+
+@.github/AGENTS.md
