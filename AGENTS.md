@@ -79,9 +79,9 @@ Onboarding is a single entry in `skylartaylor/thinkpod`'s
 (namespace / GitRepository / HelmRelease / ingress at `cine.taylor-barrick.com`),
 and Terraform reads the same file to generate this repo's CI —
 `.github/workflows/publish.yml`, `.github/workflows/lint.yml`, and the managed
-`.github/CLAUDE.md`. **Those three are Terraform-owned — don't hand-author them
+`.github/AGENTS.md`. **Those three are Terraform-owned — don't hand-author them
 here; only `test.yml` (repo build + tests) is repo-owned.** The
-**build → publish → deploy pipeline and MCP connectors live in `.github/CLAUDE.md`**
+**build → publish → deploy pipeline and MCP connectors live in `.github/AGENTS.md`**
 (generated once this repo joins the fleet). See thinkpod's
 `docs/adding-an-app.md`.
 
@@ -99,7 +99,7 @@ a new chain = writing one `Provider`; everything else already handles it.
 ## Managed deploy & ops guidance
 
 The build → publish → deploy pipeline, `gh`/git usage, PR-watching, and MCP
-connectors are documented in the Terraform-managed `.github/CLAUDE.md`.
+connectors are documented in the Terraform-managed `.github/AGENTS.md`.
 Before GitHub, deployment, or operational work, read that file. Claude Code and
 Gemini load it through their root adapter files; other agents should open it on
 demand.

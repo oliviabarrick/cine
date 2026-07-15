@@ -1,3 +1,3 @@
 @./AGENTS.md
 
-@./.github/CLAUDE.md
+@./.github/AGENTS.md
