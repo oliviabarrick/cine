@@ -2,7 +2,7 @@
 // once and does all filtering in the browser: by movie, date, format
 // (subtituladas/dobladas), sala, and cadena. No framework, no build step.
 
-const KNOWN_CHAINS = ["Cinépolis", "Cinemark", "CCM", "Sala Garbo"];
+const KNOWN_CHAINS = ["Cinépolis", "Cinemark", "CCM", "Nova Cinemas", "Sala Garbo"];
 const FORMAT_LABEL = { sub: "SUB", dub: "DOB", unknown: "?" };
 
 const state = {
@@ -157,9 +157,10 @@ function timeChip(s, now) {
   const past = new Date(s.start).getTime() < now;
   const el = mk(s.buyUrl ? "a" : "span", `time ${s.format}${past ? " past" : ""}`);
   if (s.buyUrl) { el.href = s.buyUrl; el.target = "_blank"; el.rel = "noopener"; }
-  el.title = `${s.chain} · ${FORMAT_LABEL[s.format] || "?"}${s.language ? " · " + s.language : ""}`;
+  el.title = `${s.chain} · ${FORMAT_LABEL[s.format] || "?"}${s.screen ? " · " + s.screen : ""}${s.language ? " · " + s.language : ""}`;
   el.appendChild(mk("span", "dot"));
   el.appendChild(document.createTextNode(s.time));
+  if (s.screen) el.appendChild(mk("span", "screen", s.screen));
   if (s.language) el.appendChild(mk("span", "lang", s.language));
   return el;
 }

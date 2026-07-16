@@ -44,7 +44,7 @@ func ParseFormat(s string) Format {
 // Showtime is a single normalized screening across every chain. Providers emit
 // these; the aggregator merges them and the frontend filters over them.
 type Showtime struct {
-	Chain    string    // "Cinépolis", "Cinemark", "CCM", "Sala Garbo"
+	Chain    string    // "Cinépolis", "Cinemark", "CCM", "Nova Cinemas", "Sala Garbo"
 	Cinema   string    // theater / location, e.g. "Cinépolis San Pedro"
 	Movie    string    // film title
 	Start    time.Time // screening start, in CR local time

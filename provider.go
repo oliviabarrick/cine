@@ -52,13 +52,13 @@ type Provider interface {
 	Fetch(ctx context.Context) ([]Showtime, error)
 }
 
-// providers is the registry of every chain the app aggregates. Cinépolis is a
-// live reference implementation; the rest are stubs awaiting their scrapers.
+// providers is the registry of every chain the app aggregates.
 func providers() []Provider {
 	return []Provider{
 		newCinepolis(),
 		newCinemark(),
 		newCCM(),
+		newNovaCinemas(),
 		newSalaGarbo(),
 	}
 }
