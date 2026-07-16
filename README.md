@@ -24,21 +24,16 @@ browser UI you can filter by **película**, **fecha**, **formato**
 
 | Chain | Status |
 |-------|--------|
-| Cinépolis  | ✅ live reference scraper (`cinepolis.go`) |
-| Cinemark   | 🚧 stub — parser TODO |
-| CCM        | 🚧 stub — parser TODO |
-| Sala Garbo | 🚧 stub — parser TODO |
+| Cinépolis    | ✅ live (`cinepolis.go`) |
+| Cinemark     | ✅ live (`cinemark.go`) |
+| CCM          | ✅ live (`ccm.go`) |
+| Nova Cinemas | ✅ live, including per-session IMAX (`novacinemas.go`) |
+| Sala Garbo   | ✅ live (`salagarbo.go`) |
 
 Adding a chain is one file: implement the `Provider` interface (a `Fetch` that
 calls `fetchPage` and runs a chain-specific parser) and register it in
 `providers()`. The model, cache, API, and UI already handle the rest — see
 `providers_stub.go` for the plug-in points.
-
-> **Note on the reference scraper.** Cinépolis's selectors were modeled on the
-> chain's typical markup, not verified against the live site (this project was
-> built in a sandbox whose network policy blocks the CR cinema hosts). Confirm
-> the three regexes in `cinepolis.go` against the real DOM when running with open
-> egress; they're the only thing that changes.
 
 ## Development
 

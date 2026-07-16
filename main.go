@@ -1,7 +1,7 @@
 // Command cine serves a Costa Rica movie-showtimes aggregator: it scrapes the
-// local cinema chains (Cinépolis, Cinemark, CCM, Sala Garbo), normalizes their
-// listings into a single structured feed, and serves a filterable browser UI —
-// filter by movie, time, subtitled/dubbed, and location.
+// local cinema chains (Cinépolis, Cinemark, CCM, Nova Cinemas, Sala Garbo),
+// normalizes their listings into a single structured feed, and serves a
+// filterable browser UI — filter by movie, time, subtitled/dubbed, and location.
 //
 // Scraping runs server-side on a background schedule into an in-memory cache, so
 // page loads only ever read cached data. Structure and the static-asset/CI/deploy

@@ -115,7 +115,8 @@ select {
 .time.sub .dot { background: var(--sub); }
 .time.dub .dot { background: var(--dub); }
 .time.unknown .dot { background: var(--muted); }
-.time .lang { color: var(--muted); font-size: 11px; }
+.time .lang, .time .screen { color: var(--muted); font-size: 11px; }
+.time .screen { color: var(--accent); }
 
 .empty { color: var(--muted); text-align: center; padding: 40px 0; }
 
