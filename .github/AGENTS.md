@@ -133,6 +133,11 @@ to a single attached repo, don't take its word for it -- verify
 **Trust the shell** above. For GitHub *API* actions (PRs, reviews, CI) use the
 capital-G `Github` connector, per the MCP connectors section below.
 
+When a task requests or authorizes local code changes, own the complete
+**branch -> commit -> push -> PR** workflow without waiting for the user to ask
+separately for a PR. Do not infer permission to change code from a read-only
+request, and honor an explicit request to keep changes local or not open a PR.
+
 ## PR watching
 
 **You watch every PR you open through to a verified outcome** -- opening it
