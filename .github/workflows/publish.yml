@@ -25,6 +25,7 @@ jobs:
     secrets: inherit
     with:
       slug: cine
+      host: cine.taylor-barrick.com
       chart_path: charts/cine
       dockerfile: Dockerfile
       preview_paths: "web *.go go.mod go.sum"
