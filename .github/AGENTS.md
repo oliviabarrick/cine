@@ -265,10 +265,11 @@ for app metrics when available. If a hop fails, fix forward through GitOps.
   manual step for normal app changes; add the `preview` label by hand to force an
   env on a PR that didn't match, or remove it to hold one off. Closing the PR
   tears the env down.
-- **Tune deploy config** (replicas, resources, env, ingress host): a values
+- **Tune deploy config** (replicas, resources, env): a values
   override file at `cluster/apps/values/cine.yaml` in `skylartaylor/thinkpod`,
   layered over the factory defaults. The chart *structure* lives in `charts/cine`
-  here.
+  here. Change the production hostname through this app's `host` in
+  `cluster/apps/fleet.yaml` so Flux and this generated guide stay aligned.
 
 ## Troubleshooting
 
