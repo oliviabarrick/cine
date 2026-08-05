@@ -218,15 +218,6 @@ when it is closed (or the user says stop).
   series), search dashboards, and pull panel images or alert state. Treat it as
   read/verify access -- watch request rate, latency, and error/restart spikes;
   fix forward through git, don't hand-edit dashboards.
-- **WebFetch -- `mcp__Thinkpod_WebFetch__*`** (present in some sessions), a
-  self-hosted web-access MCP server at `webfetch-mcp.taylor-barrick.com/mcp`.
-  Tools: `web_fetch` (clean article text via Mozilla Readability), `web_fetch_raw`
-  (the page's raw HTML, unprocessed -- for markup/meta tags/scripts), and
-  `web_search` (returns an error until a SearxNG backend is added). Use it to pull
-  live web pages/docs into a task; it is fetch-only and never writes. It is built
-  and deployed from `skylartaylor/thinkpod` itself (`images/webfetch-mcp/` +
-  `cluster/infra/mcp/webfetch-mcp.yaml`).
-
 ## Troubleshooting method
 
 *Distilled from Starr & Storey, [_Theory of Troubleshooting_](https://arxiv.org/abs/2602.10540). Troubleshooting builds a model of the **cause**; fixing comes after. Never patch before you can explain the behavior: a fix that works for an unknown reason has taught you nothing, and if a fix surprises you your model was wrong -- go back to understanding, don't stack another patch.*
